@@ -23,18 +23,17 @@ def find_triple_with_sum_2020(report):
                     return first_expense, second_expense, remaining
 
 
-def first_solution():
-    report = get_expenses_report()
+def first_solution(report):
     first_expense, second_expense = find_pair_with_sum_2020(report)
     return first_expense * second_expense
 
 
-def second_solution():
-    report = get_expenses_report()
+def second_solution(report):
     first_expense, second_expense, third_expense = find_triple_with_sum_2020(report)
     return first_expense * second_expense * third_expense
 
 
 if __name__ == '__main__':
-    print(first_solution())
-    print(second_solution())
+    expenses_report = get_expenses_report()
+    print(first_solution(expenses_report))
+    print(second_solution(expenses_report))
