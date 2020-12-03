@@ -23,9 +23,10 @@ def first_solution():
 def find_triple_with_sum_2020(report):
     for i, first_expense in enumerate(report[:-2]):
         second_expense = report[i + 1]
-        for third_expense in report[i + 2:]:
-            if first_expense + second_expense + third_expense == 2020:
-                return first_expense, second_expense, third_expense
+        if (first_and_second := first_expense + second_expense) < 2020:
+            for third_expense in report[i + 2:]:
+                if first_and_second + third_expense == 2020:
+                    return first_expense, second_expense, third_expense
 
 
 if __name__ == '__main__':
