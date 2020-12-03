@@ -21,12 +21,15 @@ def first_solution():
 
 
 def prefix_two_sum(report):
-    pairs_sums = dict()
+    pairs_sums = []
     for i, first_expense in enumerate(report):
         for j, second_expense in enumerate(report[i+1:], start=i+1):
-            if (two_sum := first_expense + second_expense) < 2020:
-                pairs_sums[(i, j)] = two_sum
+            pairs_sums.append(first_expense + second_expense)
     return pairs_sums
+
+
+def prefix_three_sums(pairs_sums, report):
+    pass
 
 
 if __name__ == '__main__':
