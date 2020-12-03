@@ -9,9 +9,9 @@ def get_expenses_report(filename='input.txt'):
 
 def find_pair_with_sum_2020(report):
     for i, first_expense in enumerate(report):
-        for second_expense in report[i + 1:]:
-            if first_expense + second_expense == 2020:
-                return first_expense, second_expense
+        remaining = 2020 - first_expense
+        if remaining in report[i + 1:]:
+            return first_expense, remaining
 
 
 def find_triple_with_sum_2020(report):
