@@ -36,6 +36,12 @@ class TestSolution(unittest.TestCase):
         result = prefix_two_sum(report)
         self.assertDictEqual(expected_result, result)
 
+    def test_prefix_two_sum_for_small_example(self):
+        report = [1, 2, 3]
+        expected_result = {(0, 1): 3, (0, 2): 4, (1, 2): 5}
+        result = prefix_two_sum(report)
+        self.assertDictEqual(expected_result, result)
+
 
 if __name__ == '__main__':
     unittest.main()
