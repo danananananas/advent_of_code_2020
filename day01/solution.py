@@ -8,4 +8,7 @@ def get_expenses_report(filename='input.txt'):
 
 
 def find_pair_with_sum_2020(report):
-    pass
+    for i, first_expense in enumerate(report):
+        for second_expense in report[i + 1:]:
+            if first_expense + second_expense == 2020:
+                return first_expense, second_expense
