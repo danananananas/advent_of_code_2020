@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, mock_open
-from day01.solution import get_expenses_report
+from day01.solution import get_expenses_report, find_pair_with_sum_2020
 
 
 class TestSolution(unittest.TestCase):
@@ -15,6 +15,12 @@ class TestSolution(unittest.TestCase):
         result = get_expenses_report('/dummy/filename')
         m_open.assert_called_once_with('/dummy/filename')
         self.assertListEqual([1721, 979, 366, 299, 675, 1456], result)
+
+    @patch('builtins.open', new_callable=mock_open, read_data='1721\n979\n366\n299\n675\n1456')
+    def test_find_pair_with_sum_2020(self, m_open):
+        report = [1721, 979, 366, 299, 675, 1456]
+        result = find_pair_with_sum_2020(report)
+        self.assertEqual((1721, 299), result)
 
 
 if __name__ == '__main__':
