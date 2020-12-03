@@ -20,16 +20,12 @@ def first_solution():
     return first_expense * second_expense
 
 
-def prefix_two_sum(report):
-    pairs_sums = []
-    for i, first_expense in enumerate(report):
-        for j, second_expense in enumerate(report[i+1:], start=i+1):
-            pairs_sums.append(first_expense + second_expense)
-    return pairs_sums
-
-
-def prefix_three_sums(pairs_sums, report):
-    pass
+def find_triple_with_sum_2020(report):
+    for i, first_expense in enumerate(report[:-2]):
+        second_expense = report[i + 1]
+        for third_expense in report[i + 2:]:
+            if first_expense + second_expense + third_expense == 2020:
+                return first_expense, second_expense, third_expense
 
 
 if __name__ == '__main__':

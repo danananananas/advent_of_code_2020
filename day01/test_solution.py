@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, mock_open
-from day01.solution import get_expenses_report, find_pair_with_sum_2020, prefix_two_sum, prefix_three_sums
+from day01.solution import get_expenses_report, find_pair_with_sum_2020, find_triple_with_sum_2020
 
 
 class TestSolution(unittest.TestCase):
@@ -26,23 +26,15 @@ class TestSolution(unittest.TestCase):
         result = find_pair_with_sum_2020(report)
         self.assertIsNone(result)
 
-    def test_prefix_two_sum_example(self):
+    def test_find_triple_with_sum_2020_2020_example(self):
         report = [1721, 979, 366, 299, 675, 1456]
-        expected_result = [
-            2700, 2087, 2020, 2396, 3177,
-            1345, 1278, 1654, 2435,
-            665, 1041, 1822,
-            974, 1755,
-            2131
-        ]
-        result = prefix_two_sum(report)
-        self.assertListEqual(expected_result, result)
+        result = find_triple_with_sum_2020(report)
+        self.assertTupleEqual((979, 366, 675), result)
 
-    def test_prefix_two_sum_small_example(self):
+    def test_find_triple_with_sum_2020_returns_None_if_there_is_none(self):
         report = [1, 2, 3]
-        expected_result = [3, 4, 5]
-        result = prefix_two_sum(report)
-        self.assertListEqual(expected_result, result)
+        result = find_triple_with_sum_2020(report)
+        self.assertIsNone(result)
 
 
 if __name__ == '__main__':
