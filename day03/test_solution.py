@@ -12,4 +12,4 @@ class TestSolution(TestCase):
             '.#...##..#.',
             '..#.##.....'
         ]
-        self.assertEqual(3, count_trees(test_lines))
+        self.assertEqual(3, count_trees(test_lines, right=3))
