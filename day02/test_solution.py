@@ -1,5 +1,5 @@
 from unittest import TestCase
-from day02.solution import read_pwd_line, check_pwd_policy, find_valid_pwds
+from day02.solution import read_pwd_line, check_pwd_policy, count_valid_pwds
 
 
 class TestSolution(TestCase):
@@ -36,4 +36,4 @@ class TestSolution(TestCase):
             '1-3 b: cdefg',
             '2-9 c: ccccccccc'
         ]
-        self.assertEqual(2, find_valid_pwds(test_instance))
+        self.assertEqual(2, count_valid_pwds(test_instance))

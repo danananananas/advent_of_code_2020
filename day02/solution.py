@@ -13,6 +13,6 @@ def check_pwd_policy(min_limit, max_limit, char, pwd):
     return min_limit <= pwd.count(char) <= max_limit
 
 
-def find_valid_pwds(lines):
+def count_valid_pwds(lines):
     valid_pwds = [check_pwd_policy(*read_pwd_line(line)) for line in lines]
     return sum(valid_pwds)
