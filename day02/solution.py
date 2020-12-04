@@ -1,3 +1,4 @@
+import operator
 import re
 from helper import read_input
 
@@ -15,7 +16,7 @@ def check_sled_pwd_policy(min_limit, max_limit, char, pwd):
 
 
 def check_toboggal_pwd_policy(first_index, second_index, char, pwd):
-    pass
+    return operator.xor(pwd[first_index - 1] == char, pwd[second_index - 1] == char)
 
 
 def count_valid_pwds(lines):
