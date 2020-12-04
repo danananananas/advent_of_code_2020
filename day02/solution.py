@@ -1,4 +1,5 @@
 import re
+from helper import read_input
 
 
 def read_pwd_line(line):
@@ -16,3 +17,8 @@ def check_pwd_policy(min_limit, max_limit, char, pwd):
 def count_valid_pwds(lines):
     valid_pwds = [check_pwd_policy(*read_pwd_line(line)) for line in lines]
     return sum(valid_pwds)
+
+
+if __name__ == '__main__':
+    print(count_valid_pwds(read_input('input.txt')))
+
