@@ -21,9 +21,9 @@ def check_toboggal_pwd_policy(first_index, second_index, char, pwd):
 
 def count_valid_pwds(lines, company):
     if company == 'sled':
-        valid_pwds = [check_sled_pwd_policy(*read_pwd_line(line)) for line in lines]
+        valid_pwds = (check_sled_pwd_policy(*read_pwd_line(line)) for line in lines)
     else:
-        valid_pwds = [check_toboggal_pwd_policy(*read_pwd_line(line)) for line in lines]
+        valid_pwds = (check_toboggal_pwd_policy(*read_pwd_line(line)) for line in lines)
     return sum(valid_pwds)
 
 
