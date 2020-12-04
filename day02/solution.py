@@ -19,10 +19,14 @@ def check_toboggal_pwd_policy(first_index, second_index, char, pwd):
     return operator.xor(pwd[first_index - 1] == char, pwd[second_index - 1] == char)
 
 
-def count_valid_pwds(lines):
-    valid_pwds = [check_sled_pwd_policy(*read_pwd_line(line)) for line in lines]
+def count_valid_pwds(lines, company):
+    if company == 'sled':
+        valid_pwds = [check_sled_pwd_policy(*read_pwd_line(line)) for line in lines]
+    else:
+        valid_pwds = [check_toboggal_pwd_policy(*read_pwd_line(line)) for line in lines]
     return sum(valid_pwds)
 
 
 if __name__ == '__main__':
-    print(count_valid_pwds(read_input('input.txt')))
+    print(count_valid_pwds(read_input('input.txt'), 'sled'))
+    print(count_valid_pwds(read_input('input.txt'), 'toboggal'))

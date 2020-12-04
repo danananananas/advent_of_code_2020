@@ -42,10 +42,18 @@ class TestSolution(TestCase):
         test_instance = (2, 9, 'c', 'ccccccccc')
         self.assertFalse(check_toboggal_pwd_policy(*test_instance))
 
-    def test_find_valid_pwds_example(self):
+    def test_find_valid_pwds_sled_example(self):
         test_instance = [
             '1-3 a: abcde',
             '1-3 b: cdefg',
             '2-9 c: ccccccccc'
         ]
-        self.assertEqual(2, count_valid_pwds(test_instance))
+        self.assertEqual(2, count_valid_pwds(test_instance, 'sled'))
+
+    def test_find_valid_pwds_toboggal_example(self):
+        test_instance = [
+            '1-3 a: abcde',
+            '1-3 b: cdefg',
+            '2-9 c: ccccccccc'
+        ]
+        self.assertEqual(1, count_valid_pwds(test_instance, 'toboggal'))
