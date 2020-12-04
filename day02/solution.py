@@ -21,4 +21,3 @@ def count_valid_pwds(lines):
 
 if __name__ == '__main__':
     print(count_valid_pwds(read_input('input.txt')))
-
