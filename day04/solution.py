@@ -12,3 +12,7 @@ def parse_line(line):
     # noinspection PyTypeChecker
     items = dict(item.split(':') for item in items)
     return items
+
+
+def check_for_required_fields(passport):
+    pass

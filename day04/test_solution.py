@@ -1,6 +1,6 @@
 from unittest import TestCase
 from unittest.mock import patch, mock_open
-from day04.solution import read_input, parse_line
+from day04.solution import read_input, parse_line, check_for_required_fields
 
 
 class TestSolution(TestCase):
@@ -42,3 +42,24 @@ class TestSolution(TestCase):
             'byr': '1937', 'iyr': '2017', 'cid': '147', 'hgt': '183cm'
         }
         self.assertDictEqual(expected_result, parse_line(test_line))
+
+    def test_check_for_required_fields_valid_passport(self):
+        test_passport = {
+            'ecl': 'gry', 'pid': '860033327', 'eyr': '2020', 'hcl': '#fffffd',
+            'byr': '1937', 'iyr': '2017', 'cid': '147', 'hgt': '183cm'
+        }
+        self.assertTrue(check_for_required_fields(test_passport))
+
+    def test_check_for_required_fields_valid_no_cid(self):
+        test_passport = {
+            'byr': '1991', 'eyr': '2022', 'hcl': '#341e13', 'iyr': '2016',
+            'pid': '729933757', 'hgt': '167cm', 'ecl': 'gry'
+        }
+        self.assertTrue(check_for_required_fields(test_passport))
+
+    def test_check_for_required_fields_invalid(self):
+        test_passport = {
+            'iyr': '2013', 'ecl': 'amb', 'cid': '350', 'eyr': '2023',
+            'pid': '028048884', 'hcl': '#cfa07d', 'byr': '1929'
+        }
+        self.assertFalse(check_for_required_fields(test_passport))
