@@ -22,3 +22,7 @@ def check_for_required_fields(passport):
 def check_input_for_required_fields(filename):
     passports = read_input(filename)
     return [check_for_required_fields(passport) for passport in passports]
+
+
+if __name__ == '__main__':
+    print(sum(check_input_for_required_fields('input.txt')))
