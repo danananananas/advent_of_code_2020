@@ -7,4 +7,5 @@ def read_input(filename):
 
 
 def parse_line(line):
-    return re.split(' |\r\n|\n', line)
+    line = re.split(' |\r\n|\n', line)
+    return line

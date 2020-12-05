@@ -15,7 +15,15 @@ class TestSolution(TestCase):
         expected_result = ['1', '2']
         self.assertListEqual(expected_result, parse_line(test_line))
 
-    def test_parse_lines_example(self):
+    def test_parse_lines_example_without_newline(self):
+        test_line = 'byr:1991 eyr:2022 hcl:#341e13 iyr:2016 pid:729933757 hgt:167cm ecl:gry'
+        expected_result = [
+            'byr:1991', 'eyr:2022', 'hcl:#341e13', 'iyr:2016',
+            'pid:729933757', 'hgt:167cm', 'ecl:gry'
+        ]
+        self.assertListEqual(expected_result, parse_line(test_line))
+
+    def test_parse_lines_example_with_newline(self):
         test_line = 'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\r\nbyr:1937 iyr:2017 cid:147 hgt:183cm'
         expected_result = [
             'ecl:gry', 'pid:860033327', 'eyr:2020', 'hcl:#fffffd',
