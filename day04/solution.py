@@ -1,7 +1,10 @@
+import re
+
+
 def read_input(filename):
     with open(filename) as f:
-        return f.read().split('\r\n\r\n')
+        return re.split('\r\n\r\n|\n\n', f.read())
 
 
-def parse_lines(lines):
-    pass
+def parse_line(line):
+    return re.split(' |\r\n|\n', line)
