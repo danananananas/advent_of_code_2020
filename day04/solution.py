@@ -7,5 +7,7 @@ def read_input(filename):
 
 
 def parse_line(line):
-    line = re.split(' |\r\n|\n', line)
-    return line
+    items = re.split(' |\r\n|\n', line)
+    # noinspection PyTypeChecker
+    items = dict(item.split(':') for item in items)
+    return items
