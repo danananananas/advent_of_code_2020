@@ -69,3 +69,25 @@ class TestSolution(TestCase):
         result = check_input_for_required_fields('/dummy/filename')
         m_open.assert_called_once_with('/dummy/filename')
         self.assertListEqual([True, True], result)
+
+    def test_check_input_for_required_fields_example(self):
+        test_input = (
+            'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\r\n'
+            'byr:1937 iyr:2017 cid:147 hgt:183cm\r\n'
+            '\r\n'
+            'iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884\r\n'
+            'hcl:#cfa07d byr:1929\r\n'
+            '\r\n'
+            'hcl:#ae17e1 iyr:2013\r\n'
+            'eyr:2024\r\n'
+            'ecl:brn pid:760753108 byr:1931\r\n'
+            'hgt:179cm\r\n'
+            '\r\n'
+            'hcl:#cfa07d eyr:2025 pid:166559648\r\n'
+            'iyr:2011 ecl:brn hgt:59in'
+        )
+        expected_result = [True, False, True, False]
+        with patch("builtins.open", mock_open(read_data=test_input)) as m_open:
+            result = check_input_for_required_fields('/dummy/filename')
+        m_open.assert_called_once_with('/dummy/filename')
+        self.assertListEqual(expected_result, result)
