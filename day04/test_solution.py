@@ -155,6 +155,13 @@ class TestSolution(TestCase):
         }
         self.assertFalse(validate(test_input))
 
+    def test_validate_valid_example_4_but_one_field_is_missing(self):
+        test_input = {
+            'iyr': '2010', 'hgt': '158cm', 'hcl': '#b6652a', 'ecl': 'blu',
+            'byr': '1944', 'eyr': '2021'
+        }
+        self.assertFalse(validate(test_input))
+
 
 class TestValidation(TestCase):
     def test_validate_byr_valid_year(self):
