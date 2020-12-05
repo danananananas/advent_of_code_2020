@@ -1,6 +1,11 @@
 from unittest import TestCase
 from unittest.mock import patch, mock_open
+
 from day04.solution import read_input, parse_line, check_for_required_fields, check_input_for_required_fields
+from day04.validation import (
+    validate_byr, validate_iyr, validate_eyr, validate_hgt, validate_hcl,
+    validate_ecl, validate_pid
+)
 
 
 class TestSolution(TestCase):
@@ -91,3 +96,97 @@ class TestSolution(TestCase):
             result = check_input_for_required_fields('/dummy/filename')
         m_open.assert_called_once_with('/dummy/filename')
         self.assertListEqual(expected_result, result)
+
+
+class TestValidation(TestCase):
+    def test_validate_byr_valid_year(self):
+        self.assertTrue(validate_byr('2002'))
+
+    def test_validate_byr_invalid_year_lt_1920(self):
+        self.assertFalse(validate_byr('1919'))
+
+    def test_validate_byr_invalid_year_gt_2002(self):
+        self.assertFalse(validate_byr('2003'))
+
+    def test_validate_byr_invalid_string(self):
+        self.assertFalse(validate_byr('year'))
+
+    def test_validate_iyr_valid_year(self):
+        self.assertTrue(validate_iyr('2019'))
+
+    def test_validate_iyr_invalid_year_lt_2010(self):
+        self.assertFalse(validate_iyr('2009'))
+
+    def test_validate_iyr_invalid_year_gt_2020(self):
+        self.assertFalse(validate_iyr('2021'))
+
+    def test_validate_iyr_invalid_string(self):
+        self.assertFalse(validate_iyr('year'))
+
+    def test_validate_eyr_valid_year(self):
+        self.assertTrue(validate_eyr('2029'))
+
+    def test_validate_eyr_invalid_year_lt_2020(self):
+        self.assertFalse(validate_eyr('2009'))
+
+    def test_validate_eyr_invalid_year_gt_2030(self):
+        self.assertFalse(validate_eyr('2031'))
+
+    def test_validate_eyr_invalid_string(self):
+        self.assertFalse(validate_eyr('year'))
+
+    def test_validate_hgt_valid_cm(self):
+        self.assertTrue(validate_hgt('190cm'))
+
+    def test_validate_hgt_valid_in(self):
+        self.assertTrue(validate_hgt('60in'))
+
+    def test_validate_hgt_invalid_cm_too_short(self):
+        self.assertFalse(validate_hgt('149cm'))
+
+    def test_validate_hgt_invalid_cm_too_high(self):
+        self.assertFalse(validate_hgt('194cm'))
+
+    def test_validate_hgt_invalid_in_too_short(self):
+        self.assertFalse(validate_hgt('58in'))
+
+    def test_validate_hgt_invalid_in_too_high(self):
+        self.assertFalse(validate_hgt('77in'))
+
+    def test_validate_hgt_invalid_missing_unit(self):
+        self.assertFalse(validate_hgt('190'))
+
+    def test_validate_hcl_valid(self):
+        self.assertTrue(validate_hcl('#123abc'))
+
+    def test_validate_hcl_invalid_char(self):
+        self.assertFalse(validate_hcl('#123abz'))
+
+    def test_validate_hcl_invalid_missing_pound_sign(self):
+        self.assertFalse(validate_hcl('123abc'))
+
+    def test_validate_hcl_invalid_too_short(self):
+        self.assertFalse(validate_hcl('#12ab'))
+
+    def test_validate_ecl_valid_all(self):
+        for eye_colour in ('amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'):
+            self.assertTrue(validate_ecl(eye_colour))
+
+    def test_validate_ecl_invalid_colour(self):
+        self.assertFalse(validate_ecl('grey'))
+
+    def test_validate_pid_valid(self):
+        self.assertTrue(validate_pid('896056539'))
+
+    def test_validate_pid_valid_leading_zeros(self):
+        self.assertTrue(validate_pid('000000001'))
+
+    def test_validate_pid_invalid_too_long(self):
+        self.assertFalse(validate_pid('0123456789'))
+
+    def test_validate_pid_invalid_too_short(self):
+        self.assertFalse(validate_pid('1234567'))
+
+    def test_validate_pid_invalid_not_a_number(self):
+        self.assertFalse(validate_pid('00000000l'))
+
