@@ -1,7 +1,10 @@
 from unittest import TestCase
 from unittest.mock import patch, mock_open
 
-from day04.solution import read_input, parse_line, check_for_required_fields, check_input_for_required_fields
+from day04.solution import (
+    read_input, parse_line, check_for_required_fields,
+    check_input_for_required_fields, validate
+)
 from day04.validation import (
     validate_byr, validate_iyr, validate_eyr, validate_hgt, validate_hcl,
     validate_ecl, validate_pid
@@ -15,22 +18,40 @@ class TestSolution(TestCase):
         'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\n'
         'byr:1937 iyr:2017 cid:147 hgt:183cm'
     )
-
-    @patch('builtins.open', new_callable=mock_open, read_data=test_input)
-    def test_read_input(self, m_open):
-        expected_result = [
-            {
-                'byr': '1991', 'eyr': '2022', 'hcl': '#341e13', 'iyr': '2016',
-                'pid': '729933757', 'hgt': '167cm', 'ecl': 'gry'
-            },
+    test_passports = [
+        {
+            'byr': '1991', 'eyr': '2022', 'hcl': '#341e13', 'iyr': '2016',
+            'pid': '729933757', 'hgt': '167cm', 'ecl': 'gry'
+        },
+        {
+            'ecl': 'gry', 'pid': '860033327', 'eyr': '2020', 'hcl': '#fffffd',
+            'byr': '1937', 'iyr': '2017', 'cid': '147', 'hgt': '183cm'
+        }
+    ]
+    test_passports_big = [
             {
                 'ecl': 'gry', 'pid': '860033327', 'eyr': '2020', 'hcl': '#fffffd',
                 'byr': '1937', 'iyr': '2017', 'cid': '147', 'hgt': '183cm'
+            },
+            {
+                'iyr': '2013', 'ecl': 'amb', 'cid': '350', 'eyr': '2023',
+                'pid': '028048884', 'hcl': '#cfa07d', 'byr': '1929'
+            },
+            {
+                'hcl': '#ae17e1', 'iyr': '2013', 'eyr': '2024', 'ecl': 'brn',
+                'pid': '760753108', 'byr': '1931', 'hgt': '179cm'
+            },
+            {
+                'hcl': '#cfa07d', 'eyr': '2025', 'pid': '166559648',
+                'iyr': '2011', 'ecl': 'brn', 'hgt': '59in'
             }
         ]
+
+    @patch('builtins.open', new_callable=mock_open, read_data=test_input)
+    def test_read_input(self, m_open):
         result = read_input('/dummy/filename')
         m_open.assert_called_once_with('/dummy/filename')
-        self.assertListEqual(expected_result, result)
+        self.assertListEqual(self.test_passports, result)
 
     def test_parse_lines_example_without_newline(self):
         test_line = 'byr:1991 eyr:2022 hcl:#341e13 iyr:2016 pid:729933757 hgt:167cm ecl:gry'
@@ -69,33 +90,70 @@ class TestSolution(TestCase):
         }
         self.assertFalse(check_for_required_fields(test_passport))
 
-    @patch('builtins.open', new_callable=mock_open, read_data=test_input)
-    def test_check_input_for_required_fields(self, m_open):
-        result = check_input_for_required_fields('/dummy/filename')
-        m_open.assert_called_once_with('/dummy/filename')
+    def test_check_input_for_required_fields(self):
+        result = check_input_for_required_fields(self.test_passports)
         self.assertListEqual([True, True], result)
 
     def test_check_input_for_required_fields_example(self):
-        test_input = (
-            'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\r\n'
-            'byr:1937 iyr:2017 cid:147 hgt:183cm\r\n'
-            '\r\n'
-            'iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884\r\n'
-            'hcl:#cfa07d byr:1929\r\n'
-            '\r\n'
-            'hcl:#ae17e1 iyr:2013\r\n'
-            'eyr:2024\r\n'
-            'ecl:brn pid:760753108 byr:1931\r\n'
-            'hgt:179cm\r\n'
-            '\r\n'
-            'hcl:#cfa07d eyr:2025 pid:166559648\r\n'
-            'iyr:2011 ecl:brn hgt:59in'
-        )
         expected_result = [True, False, True, False]
-        with patch("builtins.open", mock_open(read_data=test_input)) as m_open:
-            result = check_input_for_required_fields('/dummy/filename')
-        m_open.assert_called_once_with('/dummy/filename')
+        result = check_input_for_required_fields(self.test_passports_big)
         self.assertListEqual(expected_result, result)
+
+    def test_validate_valid_example_1(self):
+        test_input = {
+            'pid': '087499704', 'hgt': '74in', 'ecl': 'grn', 'iyr': '2012',
+            'eyr': '2030', 'byr': '1980', 'hcl': '#623a2f'
+        }
+        self.assertTrue(validate(test_input))
+
+    def test_validate_valid_example_2(self):
+        test_input = {
+            'eyr': '2029', 'ecl': 'blu', 'cid': '129', 'byr': '1989',
+            'iyr': '2014', 'pid': '896056539', 'hcl': '#a97842', 'hgt': '165cm'
+        }
+        self.assertTrue(validate(test_input))
+
+    def test_validate_valid_example_3(self):
+        test_input = {
+            'hcl': '#888785', 'hgt': '164cm', 'byr': '2001', 'iyr': '2015',
+            'cid': '88', 'pid': '545766238', 'ecl': 'hzl', 'eyr': '2022'
+        }
+        self.assertTrue(validate(test_input))
+
+    def test_validate_valid_example_4(self):
+        test_input = {
+            'iyr': '2010', 'hgt': '158cm', 'hcl': '#b6652a', 'ecl': 'blu',
+            'byr': '1944', 'eyr': '2021', 'pid': '093154719'
+        }
+        self.assertTrue(validate(test_input))
+
+    def test_validate_invalid_example_1(self):
+        test_input = {
+            'eyr': '1972', 'cid': '100', 'hcl': '#18171d', 'ecl': 'amb',
+            'hgt': '170', 'pid': '186cm', 'iyr': '2018', 'byr': '1926'
+        }
+        self.assertFalse(validate(test_input))
+
+    def test_validate_invalid_example_2(self):
+        test_input = {
+            'iyr': '2019', 'hcl': '#602927', 'eyr': '1967', 'hgt': '170cm',
+            'ecl': 'grn', 'pid': '012533040', 'byr': '1946'
+        }
+        self.assertFalse(validate(test_input))
+
+    def test_validate_invalid_example_3(self):
+        test_input = {
+            'hcl': 'dab227', 'iyr': '2012', 'ecl': 'brn', 'hgt': '182cm',
+            'pid': '021572410', 'eyr': '2020', 'byr': '1992', 'cid': '277'
+        }
+        self.assertFalse(validate(test_input))
+
+    def test_validate_invalid_example_4(self):
+        test_input = {
+            'hgt': '59cm', 'ecl': 'zzz', 'eyr': '2038', 'hcl': '74454a',
+            'iyr': '2023', 'pid': '3556412378', 'byr': '2007'
+        }
+        self.assertFalse(validate(test_input))
 
 
 class TestValidation(TestCase):
