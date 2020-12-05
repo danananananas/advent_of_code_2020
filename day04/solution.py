@@ -15,4 +15,5 @@ def parse_line(line):
 
 
 def check_for_required_fields(passport):
-    pass
+    required_fields = {'byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'}
+    return required_fields.issubset(set(passport.keys()))
