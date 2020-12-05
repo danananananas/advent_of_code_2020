@@ -37,7 +37,10 @@ def check_input_for_required_fields(passports):
 def validate(passport):
     required_fields = {'byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'}
     for required_field in required_fields:
-        if not validate_methods[required_field](passport[required_field]):
+        try:
+            if not validate_methods[required_field](passport[required_field]):
+                return False
+        except KeyError:
             return False
     return True
 
