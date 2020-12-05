@@ -1,6 +1,6 @@
 from unittest import TestCase
 from unittest.mock import patch, mock_open
-from day04.solution import read_input, parse_line, check_for_required_fields
+from day04.solution import read_input, parse_line, check_for_required_fields, check_input_for_required_fields
 
 
 class TestSolution(TestCase):
@@ -63,3 +63,9 @@ class TestSolution(TestCase):
             'pid': '028048884', 'hcl': '#cfa07d', 'byr': '1929'
         }
         self.assertFalse(check_for_required_fields(test_passport))
+
+    @patch('builtins.open', new_callable=mock_open, read_data=test_input)
+    def test_check_input_for_required_fields(self, m_open):
+        result = check_input_for_required_fields('/dummy/filename')
+        m_open.assert_called_once_with('/dummy/filename')
+        self.assertListEqual([True, True], result)
