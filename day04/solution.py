@@ -3,7 +3,8 @@ import re
 
 def read_input(filename):
     with open(filename) as f:
-        return re.split('\r\n\r\n|\n\n', f.read())
+        lines = re.split('\r\n\r\n|\n\n', f.read())
+        return [parse_line(line) for line in lines]
 
 
 def parse_line(line):
