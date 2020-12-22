@@ -1,5 +1,5 @@
 from unittest import TestCase
-from day05.solution import map_chars, decode_numbering, decode_seat
+from day05.solution import map_chars, decode_numbering, decode_seat, decode_seat_id
 
 
 class SolutionTest(TestCase):
@@ -110,17 +110,17 @@ class SolutionTest(TestCase):
         self.assertTupleEqual(expected_result, result)
 
     def test_decode_seat_id_ex1(self):
-        result = decode_seat(self.mapped_seat1, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.mapped_seat1, self.row_coding, self.col_coding)
         self.assertEqual(357, result)
 
     def test_decode_seat_id_ex2(self):
-        result = decode_seat(self.mapped_seat2, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.mapped_seat2, self.row_coding, self.col_coding)
         self.assertEqual(567, result)
 
     def test_decode_seat_id_ex3(self):
-        result = decode_seat(self.mapped_seat3, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.mapped_seat3, self.row_coding, self.col_coding)
         self.assertEqual(119, result)
 
     def test_decode_seat_id_ex4(self):
-        result = decode_seat(self.mapped_seat4, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.mapped_seat4, self.row_coding, self.col_coding)
         self.assertEqual(820, result)

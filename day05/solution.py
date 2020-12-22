@@ -16,4 +16,5 @@ def decode_seat(seat_code, row_coding, col_coding):
 
 
 def decode_seat_id(seat_code, row_coding, col_coding):
-    pass
+    row, column = decode_seat(seat_code, row_coding, col_coding)
+    return row * 8 + column
