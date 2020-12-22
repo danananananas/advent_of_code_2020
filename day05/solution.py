@@ -44,6 +44,12 @@ def partial_sum(k, n):
     return int(- (k - n - 1) * (k + n) / 2)
 
 
+def solution_part_2(seat_ids):
+    all_seats_summed = partial_sum(min(seat_ids), max(seat_ids))
+    taken_seats_summed = sum(seat_ids)
+    return all_seats_summed - taken_seats_summed
+
+
 if __name__ == '__main__':
     input_seat_ids = decode_file('input.txt')
     print(solution_part_1(input_seat_ids))

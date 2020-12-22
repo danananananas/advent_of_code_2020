@@ -2,7 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch, mock_open
 from day05.solution import (
     map_chars, decode_numbering, decode_seat, decode_seat_id, decode_file,
-    get_seat_coding, solution_part_1, partial_sum
+    get_seat_coding, solution_part_1, partial_sum, solution_part_2
 )
 
 
@@ -23,6 +23,7 @@ class SolutionTest(TestCase):
         self.mapped_cols = [5, 7, 7, 4]
         self.row_coding = [64, 32, 16, 8, 4, 2, 1]
         self.col_coding = [4, 2, 1]
+        self.seat_ids = [357, 567, 119, 820]
 
     def test_map_chars_ex1(self):
         self.assertEqual(self.mapped_seat1, map_chars(self.seat1, self.mapping))
@@ -137,14 +138,12 @@ class SolutionTest(TestCase):
 
     @patch('builtins.open', new_callable=mock_open, read_data='FBFBBFFRLR\nBFFFBBFRRR\nFFFBBBFRRR\nBBFFBBFRLL')
     def test_decode_file(self, m_open):
-        expected_result = [357, 567, 119, 820]
         result = decode_file('/dummy/filename')
-        self.assertListEqual(expected_result, result)
+        self.assertListEqual(self.seat_ids, result)
         m_open.assert_called_once_with('/dummy/filename')
 
     def test_solution_part_1(self):
-        seat_ids = [357, 567, 119, 820]
-        self.assertEqual(820, solution_part_1(seat_ids))
+        self.assertEqual(820, solution_part_1(self.seat_ids))
 
     def test_partial_sum_from_1_to_10(self):
         result = partial_sum(1, 10)
@@ -159,4 +158,15 @@ class SolutionTest(TestCase):
     def test_partial_sum_throws_exception_if_n_less_than_k(self):
         with self.assertRaisesRegex(ValueError, 'n can not be less than k'):
             partial_sum(2, 1)
+
+    def test_solution_part_2_simple_example(self):
+        result = solution_part_2([1, 2, 4, 5])
+        self.assertEqual(3, result)
+
+    def test_solution_part_2_more_complex_example(self):
+        test_seat_ids = [*range(13, 42), *range(43, 67)]
+        result = solution_part_2(test_seat_ids)
+        self.assertEqual(42, result)
+        self.assertIsInstance(result, int)
+
 
