@@ -3,4 +3,5 @@ def map_chars(seats, mapping):
 
 
 def decode_numbering(code, coding):
-    pass
+    code = [int(bit)*power for bit, power in zip(code, coding)]
+    return sum(code)
