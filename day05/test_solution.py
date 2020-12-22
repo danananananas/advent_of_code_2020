@@ -1,5 +1,6 @@
 from unittest import TestCase
-from day05.solution import map_chars, decode_numbering, decode_seat, decode_seat_id
+from unittest.mock import patch, mock_open
+from day05.solution import map_chars, decode_numbering, decode_seat, decode_seat_id, decode_file
 
 
 class SolutionTest(TestCase):
@@ -124,3 +125,10 @@ class SolutionTest(TestCase):
     def test_decode_seat_id_ex4(self):
         result = decode_seat_id(self.mapped_seat4, self.row_coding, self.col_coding)
         self.assertEqual(820, result)
+
+    @patch('builtins.open', new_callable=mock_open, read_data='FBFBBFFRLR\nBFFFBBFRRR\nFFFBBBFRRR\nBBFFBBFRLL')
+    def test_decode_file(self, m_open):
+        expected_result = [357, 567, 119, 820]
+        result = decode_file('/dummy/filename')
+        self.assertListEqual(expected_result, result)
+        m_open.assert_called_once_with('/dummy/filename')
