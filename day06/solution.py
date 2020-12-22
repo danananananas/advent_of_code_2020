@@ -1,4 +1,3 @@
-from collections import Counter
 from helper import read_input_w_double_return, read_input_w_double_n_single_return
 
 
