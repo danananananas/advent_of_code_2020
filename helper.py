@@ -8,6 +8,13 @@ def read_input(filename):
 
 def read_input_w_double_return(filename):
     with open(filename) as f:
-        lines = re.split('\r\n\r\n|\n\n', f.read())
-        lines = [re.split(' |\r\n|\n', line) for line in lines]
+        lines = re.split('\n\n', f.read())
+        lines = [line.replace('\n', '') for line in lines]
+        return lines
+
+
+def read_input_w_double_n_single_return(filename):
+    with open(filename) as f:
+        lines = re.split('\n\n', f.read())
+        lines = [re.split(' |\n', line) for line in lines]
         return lines

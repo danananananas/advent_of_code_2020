@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, mock_open
-from helper import read_input, read_input_w_double_return
+from helper import read_input, read_input_w_double_return, read_input_w_double_n_single_return
 
 
 class TestFirst(unittest.TestCase):
@@ -19,6 +19,12 @@ class TestFirst(unittest.TestCase):
     @patch('builtins.open', new_callable=mock_open, read_data='1\n\n2\n1\n3\n\n1\n2\n3')
     def test_read_input_w_double_return(self, m_open):
         result = read_input_w_double_return('/dummy/filename')
+        m_open.assert_called_once_with('/dummy/filename')
+        self.assertListEqual(['1', '213', '123'], result)
+
+    @patch('builtins.open', new_callable=mock_open, read_data='1\n\n2\n1\n3\n\n1\n2\n3')
+    def test_read_input_w_double_n_single_return(self, m_open):
+        result = read_input_w_double_n_single_return('/dummy/filename')
         m_open.assert_called_once_with('/dummy/filename')
         self.assertListEqual([['1'], ['2', '1', '3'], ['1', '2', '3']], result)
 

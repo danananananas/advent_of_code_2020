@@ -1,5 +1,5 @@
 import re
-from helper import read_input_w_double_return
+from helper import read_input_w_double_n_single_return
 from day04.validation import (
     validate_byr, validate_iyr, validate_eyr, validate_hgt, validate_hcl,
     validate_ecl, validate_pid
@@ -14,7 +14,7 @@ validate_methods = {
 
 
 def read_n_parse_input(filename):
-    lines = read_input_w_double_return(filename)
+    lines = read_input_w_double_n_single_return(filename)
     return [parse_line(line) for line in lines]
 
 
