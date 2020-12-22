@@ -4,11 +4,13 @@ from day05.solution import decode_row, map_chars
 
 class SolutionTest(TestCase):
     def setUp(self):
+        self.seats = 'FBFBBFFRLR\nBFFFBBFRRR\nFFFBBBFRRR\nBBFFBBFRLL'
         self.seat1 = 'FBFBBFFRLR'
         self.seat2 = 'BFFFBBFRRR'
         self.seat3 = 'FFFBBBFRRR'
         self.seat4 = 'BBFFBBFRLL'
-        self.mapped_seat1 = '0101101101'
+        self.mapped_seats = '0101100101\n1000110111\n0001110111\n1100110100'
+        self.mapped_seat1 = '0101100101'
         self.mapped_seat2 = '1000110111'
         self.mapped_seat3 = '0001110111'
         self.mapped_seat4 = '1100110100'
@@ -24,6 +26,9 @@ class SolutionTest(TestCase):
 
     def test_map_chars_ex4(self):
         self.assertEqual(self.mapped_seat4, map_chars(self.seat4))
+
+    def test_map_chars_4_seats(self):
+        self.assertEqual(self.mapped_seats, map_chars(self.seats))
 
     def test_decode_row_ex1(self):
         pass
