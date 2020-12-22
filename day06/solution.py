@@ -12,10 +12,10 @@ def count_all_unique_group_answers(filename):
 
 
 def count_only_answered_by_all_groups(group):
-    counter = Counter(group[0])
+    intersected = set(group[0])
     for person in group[1:]:
-        counter = counter & Counter(person)
-    return len(counter)
+        intersected = intersected & set(person)
+    return len(intersected)
 
 
 def count_all_only_answered_by_all_groups(filename):
