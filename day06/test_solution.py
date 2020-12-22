@@ -1,5 +1,6 @@
 from unittest import TestCase
-from day06.solution import count_unique_group_answers
+from unittest.mock import patch, mock_open
+from day06.solution import count_unique_group_answers, count_all_unique_group_answers
 
 
 class TestSolution(TestCase):
@@ -18,3 +19,9 @@ class TestSolution(TestCase):
     def test_check_group_answers_ex4(self):
         test_group = 'b'
         self.assertEqual(1, count_unique_group_answers(test_group))
+
+    @patch('builtins.open', new_callable=mock_open, read_data='abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb')
+    def test_count_all_unique_group_answers(self, m_open):
+        result = count_all_unique_group_answers('/dummy/filename')
+        m_open.assert_called_once_with('/dummy/filename')
+        self.assertListEqual([3, 3, 3, 1, 1], result)
