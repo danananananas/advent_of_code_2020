@@ -53,3 +53,4 @@ def solution_part_2(seat_ids):
 if __name__ == '__main__':
     input_seat_ids = decode_file('input.txt')
     print(solution_part_1(input_seat_ids))
+    print(solution_part_2(input_seat_ids))
