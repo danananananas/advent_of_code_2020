@@ -15,10 +15,20 @@ def decode_seat(seat_code, row_coding, col_coding):
     return row, column
 
 
-def decode_seat_id(seat_code, row_coding, col_coding):
-    row, column = decode_seat(seat_code, row_coding, col_coding)
+def decode_seat_id(seat_code, row_coding, col_coding, mapping):
+    seat = map_chars(seat_code, mapping)
+    row, column = decode_seat(seat, row_coding, col_coding)
     return row * 8 + column
 
 
+def get_seat_coding(length):
+    return [2**n for n in range(length - 1, -1, -1)]
+
+
 def decode_file(filename):
-    pass
+    mapping = {'F': '0', 'B': '1', 'L': '0', 'R': '1'}
+    row_coding = get_seat_coding(7)
+    col_coding = get_seat_coding(3)
+    with open(filename) as f:
+        seat_ids = [decode_seat_id(seat.strip(), row_coding, col_coding, mapping) for seat in f]
+    return seat_ids

@@ -1,6 +1,6 @@
 from unittest import TestCase
 from unittest.mock import patch, mock_open
-from day05.solution import map_chars, decode_numbering, decode_seat, decode_seat_id, decode_file
+from day05.solution import map_chars, decode_numbering, decode_seat, decode_seat_id, decode_file, get_seat_coding
 
 
 class SolutionTest(TestCase):
@@ -111,20 +111,26 @@ class SolutionTest(TestCase):
         self.assertTupleEqual(expected_result, result)
 
     def test_decode_seat_id_ex1(self):
-        result = decode_seat_id(self.mapped_seat1, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.seat1, self.row_coding, self.col_coding, self.mapping)
         self.assertEqual(357, result)
 
     def test_decode_seat_id_ex2(self):
-        result = decode_seat_id(self.mapped_seat2, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.seat2, self.row_coding, self.col_coding, self.mapping)
         self.assertEqual(567, result)
 
     def test_decode_seat_id_ex3(self):
-        result = decode_seat_id(self.mapped_seat3, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.seat3, self.row_coding, self.col_coding, self.mapping)
         self.assertEqual(119, result)
 
     def test_decode_seat_id_ex4(self):
-        result = decode_seat_id(self.mapped_seat4, self.row_coding, self.col_coding)
+        result = decode_seat_id(self.seat4, self.row_coding, self.col_coding, self.mapping)
         self.assertEqual(820, result)
+
+    def test_get_seat_coding_for_row(self):
+        self.assertListEqual(self.row_coding, get_seat_coding(7))
+
+    def test_get_seat_coding_for_column(self):
+        self.assertListEqual(self.col_coding, get_seat_coding(3))
 
     @patch('builtins.open', new_callable=mock_open, read_data='FBFBBFFRLR\nBFFFBBFRRR\nFFFBBBFRRR\nBBFFBBFRLL')
     def test_decode_file(self, m_open):
