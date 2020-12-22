@@ -1,9 +1,7 @@
 from unittest import TestCase
-from unittest.mock import patch, mock_open
 
 from day04.solution import (
-    read_input, parse_line, check_for_required_fields,
-    check_input_for_required_fields, validate
+    parse_line, check_for_required_fields, check_input_for_required_fields, validate
 )
 from day04.validation import (
     validate_byr, validate_iyr, validate_eyr, validate_hgt, validate_hcl,
@@ -46,12 +44,6 @@ class TestSolution(TestCase):
                 'iyr': '2011', 'ecl': 'brn', 'hgt': '59in'
             }
         ]
-
-    @patch('builtins.open', new_callable=mock_open, read_data=test_input)
-    def test_read_input(self, m_open):
-        result = read_input('/dummy/filename')
-        m_open.assert_called_once_with('/dummy/filename')
-        self.assertListEqual(self.test_passports, result)
 
     def test_parse_lines_example_without_newline(self):
         test_line = 'byr:1991 eyr:2022 hcl:#341e13 iyr:2016 pid:729933757 hgt:167cm ecl:gry'

@@ -1,4 +1,5 @@
 import re
+from helper import read_input_w_double_return
 from day04.validation import (
     validate_byr, validate_iyr, validate_eyr, validate_hgt, validate_hcl,
     validate_ecl, validate_pid
@@ -12,10 +13,9 @@ validate_methods = {
 }
 
 
-def read_input(filename):
-    with open(filename) as f:
-        lines = re.split('\r\n\r\n|\n\n', f.read())
-        return [parse_line(line) for line in lines]
+def read_n_parse_input(filename):
+    lines = read_input_w_double_return(filename)
+    return [parse_line(line) for line in lines]
 
 
 def parse_line(line):
