@@ -1,2 +1,2 @@
 def count_unique_group_answers(group):
-    pass
+    return len(set(group))
