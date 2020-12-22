@@ -32,3 +32,7 @@ def decode_file(filename):
     with open(filename) as f:
         seat_ids = [decode_seat_id(seat.strip(), row_coding, col_coding, mapping) for seat in f]
     return seat_ids
+
+
+if __name__ == '__main__':
+    print(max(decode_file('input.txt')))
