@@ -31,5 +31,6 @@ def solution_2():
 
 
 if __name__ == '__main__':
+    answers = read_input_w_double_n_single_return('input.txt')
     print(solution_1())
     print(solution_2())
