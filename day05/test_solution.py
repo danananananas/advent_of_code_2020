@@ -1,5 +1,5 @@
 from unittest import TestCase
-from day05.solution import decode_row, map_chars
+from day05.solution import decode_numbering, map_chars
 
 
 class SolutionTest(TestCase):
@@ -15,6 +15,8 @@ class SolutionTest(TestCase):
         self.mapped_seat2 = '1000110111'
         self.mapped_seat3 = '0001110111'
         self.mapped_seat4 = '1100110100'
+        self.mapped_rows = [44, 70, 14, 102]
+        self.mapped_cols = [5, 7, 7, 4]
 
     def test_map_chars_ex1(self):
         self.assertEqual(self.mapped_seat1, map_chars(self.seat1, self.mapping))
@@ -45,5 +47,34 @@ class SolutionTest(TestCase):
         with self.assertRaises(TypeError):
             self.assertEqual(self.mapped_seats, map_chars(self.seats))
 
-    def test_decode_row_ex1(self):
-        pass
+    def test_decode_numbering_for_rows_ex1(self):
+        rows_to_decode = self.mapped_seat1[:-3]
+        self.assertEqual(self.mapped_rows[0], decode_numbering(rows_to_decode))
+
+    def test_decode_numbering_for_rows_ex2(self):
+        rows_to_decode = self.mapped_seat2[:-3]
+        self.assertEqual(self.mapped_rows[1], decode_numbering(rows_to_decode))
+
+    def test_decode_numbering_for_rows_ex3(self):
+        rows_to_decode = self.mapped_seat3[:-3]
+        self.assertEqual(self.mapped_rows[2], decode_numbering(rows_to_decode))
+
+    def test_decode_numbering_for_rows_ex4(self):
+        rows_to_decode = self.mapped_seat4[:-3]
+        self.assertEqual(self.mapped_rows[3], decode_numbering(rows_to_decode))
+
+    def test_decode_numbering_for_cols_ex1(self):
+        cols_to_decode = self.mapped_seat1[-3:]
+        self.assertEqual(self.mapped_cols[0], decode_numbering(cols_to_decode))
+
+    def test_decode_numbering_for_cols_ex2(self):
+        cols_to_decode = self.mapped_seat2[-3:]
+        self.assertEqual(self.mapped_cols[1], decode_numbering(cols_to_decode))
+
+    def test_decode_numbering_for_cols_ex3(self):
+        cols_to_decode = self.mapped_seat3[-3:]
+        self.assertEqual(self.mapped_cols[2], decode_numbering(cols_to_decode))
+
+    def test_decode_numbering_for_cols_ex4(self):
+        cols_to_decode = self.mapped_seat4[-3:]
+        self.assertEqual(self.mapped_cols[3], decode_numbering(cols_to_decode))
