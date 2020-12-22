@@ -152,7 +152,7 @@ class SolutionTest(TestCase):
     def test_partial_sum_one_element(self):
         self.assertEqual(1000, partial_sum(1000, 1000))
 
-    def test_partial_sum_throws_exception_if_k_less_than_n(self):
-        with self.assertRaises(ValueError):
+    def test_partial_sum_throws_exception_if_n_less_than_k(self):
+        with self.assertRaisesRegex(ValueError, 'n can not be less than k'):
             partial_sum(2, 1)
 
