@@ -7,7 +7,7 @@ def decode_numbering(code, coding):
     return sum(code)
 
 
-def decode_seat_id(seat_code, row_coding, col_coding):
+def decode_seat(seat_code, row_coding, col_coding):
     row = seat_code[:-3]
     column = seat_code[-3:]
     row = decode_numbering(row, row_coding)
