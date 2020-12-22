@@ -41,7 +41,7 @@ def solution_part_1(seat_ids):
 def partial_sum(k, n):
     if k > n:
         raise ValueError('n can not be less than k')
-    return - (k - n - 1) * (k + n) / 2
+    return int(- (k - n - 1) * (k + n) / 2)
 
 
 if __name__ == '__main__':

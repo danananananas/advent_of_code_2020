@@ -147,10 +147,14 @@ class SolutionTest(TestCase):
         self.assertEqual(820, solution_part_1(seat_ids))
 
     def test_partial_sum_from_1_to_10(self):
-        self.assertEqual(55, partial_sum(1, 10))
+        result = partial_sum(1, 10)
+        self.assertEqual(55, result)
+        self.assertIsInstance(result, int)
 
     def test_partial_sum_one_element(self):
-        self.assertEqual(1000, partial_sum(1000, 1000))
+        result = partial_sum(1000, 1000)
+        self.assertEqual(1000, result)
+        self.assertIsInstance(result, int)
 
     def test_partial_sum_throws_exception_if_n_less_than_k(self):
         with self.assertRaisesRegex(ValueError, 'n can not be less than k'):
