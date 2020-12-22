@@ -1,6 +1,9 @@
 from unittest import TestCase
 from unittest.mock import patch, mock_open
-from day05.solution import map_chars, decode_numbering, decode_seat, decode_seat_id, decode_file, get_seat_coding
+from day05.solution import (
+    map_chars, decode_numbering, decode_seat, decode_seat_id, decode_file,
+    get_seat_coding, solution_part_1, partial_sum
+)
 
 
 class SolutionTest(TestCase):
@@ -138,3 +141,18 @@ class SolutionTest(TestCase):
         result = decode_file('/dummy/filename')
         self.assertListEqual(expected_result, result)
         m_open.assert_called_once_with('/dummy/filename')
+
+    def test_solution_part_1(self):
+        seat_ids = [357, 567, 119, 820]
+        self.assertEqual(820, solution_part_1(seat_ids))
+
+    def test_partial_sum_from_1_to_10(self):
+        self.assertEqual(55, partial_sum(1, 10))
+
+    def test_partial_sum_one_element(self):
+        self.assertEqual(1000, partial_sum(1000, 1000))
+
+    def test_partial_sum_throws_exception_if_k_less_than_n(self):
+        with self.assertRaises(ValueError):
+            partial_sum(2, 1)
+

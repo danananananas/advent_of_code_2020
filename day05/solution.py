@@ -34,5 +34,14 @@ def decode_file(filename):
     return seat_ids
 
 
+def solution_part_1(seat_ids):
+    return max(seat_ids)
+
+
+def partial_sum(k, n):
+    return - (k - n - 1) * (k + n) / 2
+
+
 if __name__ == '__main__':
-    print(max(decode_file('input.txt')))
+    input_seat_ids = decode_file('input.txt')
+    print(solution_part_1(input_seat_ids))
