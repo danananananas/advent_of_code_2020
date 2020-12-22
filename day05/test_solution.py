@@ -89,22 +89,38 @@ class SolutionTest(TestCase):
         expected_result = decode_numbering(cols_to_decode, self.col_coding)
         self.assertEqual(self.mapped_cols[3], expected_result)
 
-    def test_decode_seat_id_ex1(self):
+    def test_decode_seat_ex1(self):
         expected_result = (self.mapped_rows[0], self.mapped_cols[0])
         result = decode_seat(self.mapped_seat1, self.row_coding, self.col_coding)
         self.assertTupleEqual(expected_result, result)
 
-    def test_decode_seat_id_ex2(self):
+    def test_decode_seat_ex2(self):
         expected_result = (self.mapped_rows[1], self.mapped_cols[1])
         result = decode_seat(self.mapped_seat2, self.row_coding, self.col_coding)
         self.assertTupleEqual(expected_result, result)
 
-    def test_decode_seat_id_ex3(self):
+    def test_decode_seat_ex3(self):
         expected_result = (self.mapped_rows[2], self.mapped_cols[2])
         result = decode_seat(self.mapped_seat3, self.row_coding, self.col_coding)
         self.assertTupleEqual(expected_result, result)
 
-    def test_decode_seat_id_ex4(self):
+    def test_decode_seat_ex4(self):
         expected_result = (self.mapped_rows[3], self.mapped_cols[3])
         result = decode_seat(self.mapped_seat4, self.row_coding, self.col_coding)
         self.assertTupleEqual(expected_result, result)
+
+    def test_decode_seat_id_ex1(self):
+        result = decode_seat(self.mapped_seat1, self.row_coding, self.col_coding)
+        self.assertEqual(357, result)
+
+    def test_decode_seat_id_ex2(self):
+        result = decode_seat(self.mapped_seat2, self.row_coding, self.col_coding)
+        self.assertEqual(567, result)
+
+    def test_decode_seat_id_ex3(self):
+        result = decode_seat(self.mapped_seat3, self.row_coding, self.col_coding)
+        self.assertEqual(119, result)
+
+    def test_decode_seat_id_ex4(self):
+        result = decode_seat(self.mapped_seat4, self.row_coding, self.col_coding)
+        self.assertEqual(820, result)

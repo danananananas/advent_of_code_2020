@@ -13,3 +13,7 @@ def decode_seat(seat_code, row_coding, col_coding):
     row = decode_numbering(row, row_coding)
     column = decode_numbering(column, col_coding)
     return row, column
+
+
+def decode_seat_id(seat_code, row_coding, col_coding):
+    pass
