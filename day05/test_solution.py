@@ -1,8 +1,8 @@
 from unittest import TestCase
 from unittest.mock import patch, mock_open
 from day05.solution import (
-    map_chars, decode_numbering, decode_seat, decode_seat_id, decode_file,
-    get_seat_coding, solution_part_1, partial_sum, solution_part_2
+    map_chars, decode_seat, decode_seat_id, decode_file,
+    solution_part_1, partial_sum, solution_part_2
 )
 
 
@@ -54,87 +54,41 @@ class SolutionTest(TestCase):
         with self.assertRaises(TypeError):
             self.assertEqual(self.mapped_seats, map_chars(self.seats))
 
-    def test_decode_numbering_for_rows_ex1(self):
-        rows_to_decode = self.mapped_seat1[:-3]
-        expected_result = decode_numbering(rows_to_decode, self.row_coding)
-        self.assertEqual(self.mapped_rows[0], expected_result)
-
-    def test_decode_numbering_for_rows_ex2(self):
-        rows_to_decode = self.mapped_seat2[:-3]
-        expected_result = decode_numbering(rows_to_decode, self.row_coding)
-        self.assertEqual(self.mapped_rows[1], expected_result)
-
-    def test_decode_numbering_for_rows_ex3(self):
-        rows_to_decode = self.mapped_seat3[:-3]
-        expected_result = decode_numbering(rows_to_decode, self.row_coding)
-        self.assertEqual(self.mapped_rows[2], expected_result)
-
-    def test_decode_numbering_for_rows_ex4(self):
-        rows_to_decode = self.mapped_seat4[:-3]
-        expected_result = decode_numbering(rows_to_decode, self.row_coding)
-        self.assertEqual(self.mapped_rows[3], expected_result)
-
-    def test_decode_numbering_for_cols_ex1(self):
-        cols_to_decode = self.mapped_seat1[-3:]
-        expected_result = decode_numbering(cols_to_decode, self.col_coding)
-        self.assertEqual(self.mapped_cols[0], expected_result)
-
-    def test_decode_numbering_for_cols_ex2(self):
-        cols_to_decode = self.mapped_seat2[-3:]
-        expected_result = decode_numbering(cols_to_decode, self.col_coding)
-        self.assertEqual(self.mapped_cols[1], expected_result)
-
-    def test_decode_numbering_for_cols_ex3(self):
-        cols_to_decode = self.mapped_seat3[-3:]
-        expected_result = decode_numbering(cols_to_decode, self.col_coding)
-        self.assertEqual(self.mapped_cols[2], expected_result)
-
-    def test_decode_numbering_for_cols_ex4(self):
-        cols_to_decode = self.mapped_seat4[-3:]
-        expected_result = decode_numbering(cols_to_decode, self.col_coding)
-        self.assertEqual(self.mapped_cols[3], expected_result)
-
     def test_decode_seat_ex1(self):
         expected_result = (self.mapped_rows[0], self.mapped_cols[0])
-        result = decode_seat(self.mapped_seat1, self.row_coding, self.col_coding)
+        result = decode_seat(self.mapped_seat1)
         self.assertTupleEqual(expected_result, result)
 
     def test_decode_seat_ex2(self):
         expected_result = (self.mapped_rows[1], self.mapped_cols[1])
-        result = decode_seat(self.mapped_seat2, self.row_coding, self.col_coding)
+        result = decode_seat(self.mapped_seat2)
         self.assertTupleEqual(expected_result, result)
 
     def test_decode_seat_ex3(self):
         expected_result = (self.mapped_rows[2], self.mapped_cols[2])
-        result = decode_seat(self.mapped_seat3, self.row_coding, self.col_coding)
+        result = decode_seat(self.mapped_seat3)
         self.assertTupleEqual(expected_result, result)
 
     def test_decode_seat_ex4(self):
         expected_result = (self.mapped_rows[3], self.mapped_cols[3])
-        result = decode_seat(self.mapped_seat4, self.row_coding, self.col_coding)
+        result = decode_seat(self.mapped_seat4)
         self.assertTupleEqual(expected_result, result)
 
     def test_decode_seat_id_ex1(self):
-        result = decode_seat_id(self.seat1, self.row_coding, self.col_coding, self.mapping)
+        result = decode_seat_id(self.seat1, self.mapping)
         self.assertEqual(357, result)
 
     def test_decode_seat_id_ex2(self):
-        result = decode_seat_id(self.seat2, self.row_coding, self.col_coding, self.mapping)
+        result = decode_seat_id(self.seat2, self.mapping)
         self.assertEqual(567, result)
 
     def test_decode_seat_id_ex3(self):
-        result = decode_seat_id(self.seat3, self.row_coding, self.col_coding, self.mapping)
+        result = decode_seat_id(self.seat3, self.mapping)
         self.assertEqual(119, result)
 
     def test_decode_seat_id_ex4(self):
-        result = decode_seat_id(self.seat4, self.row_coding, self.col_coding, self.mapping)
+        result = decode_seat_id(self.seat4, self.mapping)
         self.assertEqual(820, result)
-
-    def test_get_seat_coding_for_row(self):
-        self.assertListEqual(self.row_coding, get_seat_coding(7))
-
-    def test_get_seat_coding_for_column(self):
-        self.assertListEqual(self.col_coding, get_seat_coding(3))
 
     @patch('builtins.open', new_callable=mock_open, read_data='FBFBBFFRLR\nBFFFBBFRRR\nFFFBBBFRRR\nBBFFBBFRLL')
     def test_decode_file(self, m_open):

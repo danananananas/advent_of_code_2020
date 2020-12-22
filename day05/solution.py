@@ -2,35 +2,24 @@ def map_chars(seats, mapping):
     return seats.translate(str.maketrans(mapping))
 
 
-def decode_numbering(code, coding):
-    code = [int(bit)*power for bit, power in zip(code, coding)]
-    return sum(code)
-
-
-def decode_seat(seat_code, row_coding, col_coding):
+def decode_seat(seat_code):
     row = seat_code[:-3]
     column = seat_code[-3:]
-    row = decode_numbering(row, row_coding)
-    column = decode_numbering(column, col_coding)
+    row = int(row, 2)
+    column = int(column, 2)
     return row, column
 
 
-def decode_seat_id(seat_code, row_coding, col_coding, mapping):
+def decode_seat_id(seat_code, mapping):
     seat = map_chars(seat_code, mapping)
-    row, column = decode_seat(seat, row_coding, col_coding)
+    row, column = decode_seat(seat)
     return row * 8 + column
-
-
-def get_seat_coding(length):
-    return [2**n for n in range(length - 1, -1, -1)]
 
 
 def decode_file(filename):
     mapping = {'F': '0', 'B': '1', 'L': '0', 'R': '1'}
-    row_coding = get_seat_coding(7)
-    col_coding = get_seat_coding(3)
     with open(filename) as f:
-        seat_ids = [decode_seat_id(seat.strip(), row_coding, col_coding, mapping) for seat in f]
+        seat_ids = [decode_seat_id(seat.strip(), mapping) for seat in f]
     return seat_ids
 
 
